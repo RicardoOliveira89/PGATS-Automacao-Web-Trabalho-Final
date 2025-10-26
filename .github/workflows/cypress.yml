@@ -1,4 +1,4 @@
-name: Run Cypress Tests
+name: Run PGATS Web Automation Final Exercise
 
 on:
   push:
