@@ -1,54 +1,3 @@
-# name: Run Final Exercise
-
-# on:
-#   push:
-#     branches: [ main ]
-#   pull_request:
-#     branches: [ main ]
-#   workflow_dispatch:
-
-# jobs:
-#   cypress-run:
-#     name: Run Cypress (headless)
-#     runs-on: ubuntu-latest
-#     env:
-#       CI: true
-
-#     steps:
-
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
-
-#       - name: Use Node.js 20
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: '20'
-#           cache: 'npm' 
-
-#       - name: Install dependencies
-#         run: npm ci
-
-#       - name: Cache Cypress binary
-#         uses: actions/cache@v4
-#         with:
-#           path: ~/.cache/Cypress
-#           key: cypress-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-#           restore-keys: |
-#             cypress-${{ runner.os }}-
-
-#       - name: Install Cypress binary
-#         run: npx cypress install --force
-
-#       - name: Run all Cypress tests (headless)
-#         run: npx cypress run --spec "cypress/e2e/**/*.cy.{js,ts,jsx,tsx}" --browser chrome
-
-#       - name: Upload mochawesome reports (if present)
-#         if: always()
-#         uses: actions/upload-artifact@v4
-#         with:
-#           name: mochawesome-report
-#           path: mochawesome-report/**
-
 name: Run Final Exercise
 
 on:
@@ -66,19 +15,19 @@ jobs:
       CI: true
 
     steps:
-      - name: 🧩 Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: ⚙️ Setup Node.js 20
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: 💾 Cache Cypress binary
+      - name: Cache Cypress binary
         uses: actions/cache@v4
         with:
           path: ~/.cache/Cypress
@@ -86,21 +35,21 @@ jobs:
           restore-keys: |
             cypress-${{ runner.os }}-
 
-      - name: 🧱 Install Cypress binary
+      - name: Install Cypress binary
         run: npx cypress install --force
 
-      - name: 🧪 Run Cypress tests
+      - name: Run Cypress tests
         run: npm run cypress:run
 
-      - name: 🧩 Merge mochawesome JSON reports
+      - name: Merge mochawesome JSON reports
         if: always()
         run: npm run merge:reports
 
-      - name: 📊 Generate consolidated HTML report
+      - name: Generate consolidated HTML report
         if: always()
         run: npm run generate:report
 
-      - name: 📤 Upload Test_Report.html artifact
+      - name: Upload Test_Report.html artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
