@@ -3,5 +3,11 @@
     "@faker-js/faker": "^10.1.0",
     "cypress": "^15.5.0",
     "cypress-mochawesome-reporter": "^4.0.2"
+  },
+  "scripts": {
+    "cypress:run": "cypress run",
+    "merge:reports": "npx mochawesome-merge mochawesome-report/*.json > mochawesome-report/output.json",
+    "generate:report": "npx marge mochawesome-report/output.json --reportDir mochawesome-report --reportFilename Test_Report.html"
   }
+
 }
