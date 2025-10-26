@@ -7,6 +7,7 @@ import menu from '../modules/menu'
 import login from '../modules/login'
 import register from '../modules/register'
 import contact from '../modules/contact'
+import product from '../modules/products'
 
 describe('Automation Exercise', () => {
 
@@ -51,5 +52,29 @@ describe('Automation Exercise', () => {
         contact.fillInContactFormFields(userData.name, userData.email, userData.subject, userData.message)
         contact.attachFile('test-file.pdf')
         contact.verifyFormSubmission()
+    })
+
+    it('Test Case 8: Verify All Products and product detail page', () => {
+        menu.navigateToProducts()
+        product.clickProductDetails()
+        product.verifyBeingOnProductDetailsPage()
+        product.verifyProductName('Blue Top')
+        product.verifyProductCategory('Category: Women > Tops')
+        product.verifyProductPrice('Rs. 500')
+        product.verifyProductAvailability('Availability: In Stock')
+        product.verifyProductCondition('Condition: New')
+        product.verifyProductBrand('Brand: Polo')
+    })
+
+    it.only('Test Case 9: Search Product', () => {
+        
+    })
+
+    it('Test Case 10: Verify Subscription in home page', () => {
+        
+    })
+
+    it('Test Case 15: Place Order: Register before Checkout', () => {
+        
     })
 })

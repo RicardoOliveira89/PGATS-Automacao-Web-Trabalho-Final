@@ -12,6 +12,8 @@ class Contact {
         cy.get('[data-qa="submit-button"]').click()
     }
 
+    //ASSERTIONS
+    
     verifyFormSubmission(){
         cy.get('.status').should('be.visible')
         cy.get('.status').should('have.text', 'Success! Your details have been submitted successfully.')

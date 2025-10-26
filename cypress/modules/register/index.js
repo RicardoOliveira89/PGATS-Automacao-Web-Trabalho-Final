@@ -19,6 +19,8 @@ class Register {
         cy.get('[data-qa="create-account"]').click()
     }
 
+    //ASSERTIONS
+    
     verifyRegistrationSucessfully(){
         cy.url().should('includes', 'account_created')
         cy.contains('b', 'Account Created!')

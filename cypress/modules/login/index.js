@@ -12,6 +12,8 @@ class Login {
 
     }
 
+    //ASSERTIONS
+    
     verifyLoginSuccessfully(user){
         cy.get('i.fa-user').parent('a').should('contain', user)
         cy.get('a[href="/logout"]').should('be.visible')
