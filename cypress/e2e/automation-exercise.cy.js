@@ -105,5 +105,5 @@ describe('Automation Exercise', () => {
         cart.clickPayAndConfirmOrder()
         menu.deleteAccount()
     })
-
+//teste pipeline
 })
