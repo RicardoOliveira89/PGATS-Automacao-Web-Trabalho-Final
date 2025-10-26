@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'  # Usa cache interno do setup-node (dispensa step separado)
+          cache: 'npm' 
 
       - name: Install dependencies
         run: npm ci
@@ -39,12 +39,27 @@ jobs:
       - name: Install Cypress binary
         run: npx cypress install --force
 
-      - name: Run all Cypress tests (headless)
-        run: npx cypress run --spec "cypress/e2e/**/*.cy.{js,ts,jsx,tsx}" --browser chrome
+      - name: Merge mochawesome reports
+        if: always()
+        run: npm run merge:reports
 
-      - name: Upload mochawesome reports (if present)
+      - name: Generate HTML report
+        if: always()
+        run: npm run generate:report
+
+      - name: Upload mochawesome report artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mochawesome-report
           path: mochawesome-report/**
+
+      # - name: Run all Cypress tests (headless)
+      #   run: npx cypress run --spec "cypress/e2e/**/*.cy.{js,ts,jsx,tsx}" --browser chrome
+
+      # - name: Upload mochawesome reports (if present)
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: mochawesome-report
+      #     path: mochawesome-report/**
