@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
-import { faker } from '@faker-js/faker';
-
+import { faker } from '@faker-js/faker'
 import helpers from '../support/helpers'
 import userData from '../fixtures/data-user.json'
 import menu from '../modules/menu'
@@ -9,7 +8,8 @@ import login from '../modules/login'
 import register from '../modules/register'
 import contact from '../modules/contact'
 import product from '../modules/products'
-import home from '../modules/home';
+import home from '../modules/home'
+import cart from '../modules/shopping-cart'
 
 describe('Automation Exercise', () => {
 
@@ -20,10 +20,12 @@ describe('Automation Exercise', () => {
     it('Test Case 1: Register User', () => {
         const firstName = faker.person.firstName()
         const lastName = faker.person.lastName()
+        const completeName = firstName + ' ' + lastName
         menu.navigateToLogin()
         login.fillOutPreRegistrationForm(`${firstName} ${lastName}`, helpers.getRandomEmail())
         register.fillOutTheCompleteRegistrationForm('Mr', userData.password, '18', 'April', '1989', faker.person.firstName(), faker.person.lastName(), `PGATS ${faker.company.name()}`, faker.location.streetAddress(), 'Canada', faker.location.state(), faker.location.city(), faker.location.zipCode(), userData.mobileNumber)
         register.verifyRegistrationSucessfully()
+        register.verifyLoggedUser(completeName)
     })
 
     it('Test Case 2: Login User with correct email and password', () => {
@@ -83,9 +85,25 @@ describe('Automation Exercise', () => {
         home.sucessfulSubscription(userData.email)
     })
 
-    it.skip('Test Case 15: Place Order: Register before Checkout', () => {
-        
+    it('Test Case 15: Place Order: Register before Checkout', () => {
+        const firstName = faker.person.firstName()
+        const lastName = faker.person.lastName()
+        const email = faker.internet.email()
+        const completeName = firstName + ' ' + lastName
+        menu.navigateToLogin()
+        login.fillOutPreRegistrationForm(`${firstName} ${lastName}`, email)
+        register.fillOutTheCompleteRegistrationForm('Mr', userData.password, '18', 'April', '1989', firstName, lastName, `PGATS ${faker.company.name()}`, faker.location.streetAddress(), 'Canada', faker.location.state(), faker.location.city(), faker.location.zipCode(), userData.mobileNumber)
+        register.verifyRegistrationSucessfully()
+        register.verifyLoggedUser(completeName)
+        menu.navigateToProducts()
+        product.addProductToCart()
+        menu.navigateToCart()
+        helpers.verifyPage('view_cart')
+        cart.clickToProcedToCheckout(completeName)
+        cart.insertPurchaseDescription('Automation Test')
+        cart.informPaymentDetails(completeName, userData.creditCardNumber, userData.creditCardCvc, userData.creditCardExpirationMonth, userData.creditCardExpirationYear)
+        cart.clickPayAndConfirmOrder()
+        menu.deleteAccount()
     })
+
 })
-
-

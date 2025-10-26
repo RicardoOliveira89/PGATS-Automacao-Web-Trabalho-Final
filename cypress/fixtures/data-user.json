@@ -4,5 +4,9 @@
     "subject": "Support",
     "message": "Testing using fixtures and upload",
     "password": "12345",
-    "mobileNumber": "111 222 333"
+    "mobileNumber": "111 222 333",
+    "creditCardNumber": "9876543210",
+    "creditCardCvc": "123",
+    "creditCardExpirationMonth": "12",
+    "creditCardExpirationYear": "2030"
 }

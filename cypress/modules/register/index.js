@@ -25,6 +25,11 @@ class Register {
         cy.url().should('includes', 'account_created')
         cy.contains('b', 'Account Created!')
         cy.get('h2[data-qa="account-created"]').should('have.text', 'Account Created!')
+        cy.get('.btn-primary').click()
+    }
+
+    verifyLoggedUser(name){
+        cy.contains(`Logged in as ${name}`).should('be.visible')
     }
 }
 

@@ -24,10 +24,6 @@ class Login {
         cy.get('p').contains('Your email or password is incorrect!').should('be.visible')
     }
 
-    verifyLogoutSuccessfully(){
-        cy.url().should('contain', 'login')
-    }
-
     verifyExistingEmail(){
         cy.get('p').contains('Email Address already exist!').should('be.visible')
     }
