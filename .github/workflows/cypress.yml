@@ -11,6 +11,8 @@ jobs:
   cypress-run:
     name: Run Cypress (headless)
     runs-on: ubuntu-latest
+    env:
+      CI: true
 
     steps:
       - name: Checkout repository
@@ -21,7 +23,7 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Cache node modules
+      - name: Cache npm
         uses: actions/cache@v4
         with:
           path: ~/.npm
@@ -32,22 +34,29 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Cypress binary (faster when cached)
+      - name: Install Cypress binary
         run: npx cypress install
 
-      - name: Run Cypress tests
-        run: npx cypress run
+      - name: Run all Cypress tests (headless)
+        run: npx cypress run --spec "cypress/e2e/**/*.cy.{js,ts,jsx,tsx}"
 
-      - name: Upload Cypress screenshots (if any)
+      - name: Upload Cypress screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
-          path: cypress/screenshots || cypress/screenshots/**
+          path: cypress/screenshots/**
 
-      - name: Upload Cypress videos (if any)
+      - name: Upload Cypress videos
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
-          path: cypress/videos || cypress/videos/**
+          path: cypress/videos/**
+
+      - name: Upload mochawesome reports (if present)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-report
+          path: mochawesome-report/**

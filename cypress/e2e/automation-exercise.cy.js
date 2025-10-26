@@ -66,7 +66,7 @@ describe('Automation Exercise', () => {
         product.verifyProductBrand('Brand: Polo')
     })
 
-    it.only('Test Case 9: Search Product', () => {
+    it('Test Case 9: Search Product', () => {
         
     })
 
