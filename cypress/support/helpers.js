@@ -8,6 +8,8 @@ class Helpers {
         return faker.internet.email({ firstName: 'QATester' })
     }
 
+    //ASSERTIONS
+    
     verifyPage(page) {
         cy.url().should('include', page)
     }

@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
-import { faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker';
+
 import helpers from '../support/helpers'
 import userData from '../fixtures/data-user.json'
 import menu from '../modules/menu'
@@ -8,6 +9,7 @@ import login from '../modules/login'
 import register from '../modules/register'
 import contact from '../modules/contact'
 import product from '../modules/products'
+import home from '../modules/home';
 
 describe('Automation Exercise', () => {
 
@@ -77,11 +79,13 @@ describe('Automation Exercise', () => {
         product.verifyProductList()
     })
 
-    it.skip('Test Case 10: Verify Subscription in home page', () => {
-        
+    it('Test Case 10: Verify Subscription in home page', () => {
+        home.sucessfulSubscription(userData.email)
     })
 
     it.skip('Test Case 15: Place Order: Register before Checkout', () => {
         
     })
 })
+
+

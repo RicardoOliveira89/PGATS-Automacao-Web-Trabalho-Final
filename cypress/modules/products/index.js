@@ -4,6 +4,14 @@ class Products {
         cy.get('a[href="/product_details/1"]').click()
     }
 
+    searchProduct(product){
+        cy.get('[name="search"]').click().type(product);
+        cy.get('#submit_search i.fa').click();
+        cy.get('h2.title').should('have.text', 'Searched Products');
+    }
+
+    //ASSERTIONS
+
     verifyProductName(name){
         cy.get('div.product-information h2').should('have.text', name);
     }
@@ -44,11 +52,6 @@ class Products {
         })
     }
 
-    searchProduct(product){
-        cy.get('[name="search"]').click().type(product);
-        cy.get('#submit_search i.fa').click();
-        cy.get('h2.title').should('have.text', 'Searched Products');
-    }
 }
 
 export default new Products()
