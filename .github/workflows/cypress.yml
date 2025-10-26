@@ -1,4 +1,4 @@
-name: Run Final Exercise
+name: Run Cypress Tests
 
 on:
   push:
@@ -9,16 +9,17 @@ on:
 
 jobs:
   cypress-run:
-    name: Run Cypress Tests (headless)
+    name: Run Cypress (headless)
     runs-on: ubuntu-latest
     env:
       CI: true
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -38,16 +39,14 @@ jobs:
       - name: Install Cypress binary
         run: npx cypress install --force
 
-      - name: Run Cypress tests
-        run: npm run cypress:run
+      - name: Run Cypress tests (Chrome headless)
+        run: npx cypress run --browser chrome --headless -- --enable-unsafe-swiftshader
 
-      - name: Merge mochawesome JSON reports
-        if: always()
-        run: npm run merge:reports
+      - name: Merge Mochawesome JSON reports
+        run: npx mochawesome-merge mochawesome-report/*.json > mochawesome-report/output.json
 
-      - name: Generate consolidated HTML report
-        if: always()
-        run: npm run generate:report
+      - name: Generate standalone HTML report
+        run: npx marge mochawesome-report/output.json --reportDir mochawesome-report --reportFilename Test_Report.html --inline-assets
 
       - name: Upload Test_Report.html artifact
         if: always()
