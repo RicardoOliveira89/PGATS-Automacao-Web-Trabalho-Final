@@ -39,6 +39,16 @@ jobs:
       - name: Install Cypress binary
         run: npx cypress install --force
 
+      - name: Run all Cypress tests (headless)
+        run: npx cypress run --spec "cypress/e2e/**/*.cy.{js,ts,jsx,tsx}" --browser chrome
+
+      # - name: Upload mochawesome reports (if present)
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: mochawesome-report
+      #     path: mochawesome-report/**
+
       - name: Merge mochawesome reports
         if: always()
         run: npm run merge:reports
@@ -53,13 +63,3 @@ jobs:
         with:
           name: mochawesome-report
           path: mochawesome-report/**
-
-      # - name: Run all Cypress tests (headless)
-      #   run: npx cypress run --spec "cypress/e2e/**/*.cy.{js,ts,jsx,tsx}" --browser chrome
-
-      # - name: Upload mochawesome reports (if present)
-      #   if: always()
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: mochawesome-report
-      #     path: mochawesome-report/**
