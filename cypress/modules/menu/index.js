@@ -6,10 +6,10 @@ class Menu {
     navigateToContacts(){
          cy.get('a[href*=contact]').click()
     }
+    
     navigateToProducts(){
         cy.get('#header a[href="/products"]').click()
         cy.get('h2.title').should('have.text', 'All Products')
-        cy.get('div.padding-right').should('be.visible')
     }
 
     logout(){

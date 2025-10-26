@@ -1,9 +1,16 @@
 import { faker } from '@faker-js/faker'
+class Helpers {
+    getRandomNumber(){
+        return faker.number.bigInt()
+    }
 
-export function getRandomNumber(){
-    return faker.number.bigInt()
+    getRandomEmail(){
+        return faker.internet.email({ firstName: 'QATester' })
+    }
+
+    verifyPage(page) {
+        cy.url().should('include', page)
+    }
 }
 
-export function getRandomEmail(){
-    return faker.internet.email({ firstName: 'QATester' })
-}
+export default new Helpers()
