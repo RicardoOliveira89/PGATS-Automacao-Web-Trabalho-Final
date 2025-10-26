@@ -1,4 +1,4 @@
-# PGATS-Automacao-Web-Trabalho-Final
+# PGATS-Web-Automation-Final-Exercise
 
 Final Project for the Interface Layer (Web) Test Automation course in the Software Automation Graduate Program.
 
