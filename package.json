@@ -9,5 +9,4 @@
     "merge:reports": "npx mochawesome-merge mochawesome-report/*.json > mochawesome-report/output.json",
     "generate:report": "npx marge mochawesome-report/output.json --reportDir mochawesome-report --reportFilename Test_Report.html --inline-assets"
   }
-
 }
